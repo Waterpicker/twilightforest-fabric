@@ -25,10 +25,13 @@ import twilightforest.world.registration.biomes.BiomeKeys;
 
 import java.util.Random;
 
+import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+
 /**
  * Copypasta of EntityRenderer.renderRainSnow() hacked to include progression environmental effects
  */
-public class TFWeatherRenderer {
+public class TFWeatherRenderer implements DimensionRenderingRegistry.WeatherRenderer {
 
 	private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
 	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
@@ -507,6 +510,11 @@ public class TFWeatherRenderer {
 			return RenderType.BIG_RAIN;
 		}
 		return null;
+	}
+
+	@Override
+	public void render(WorldRenderContext context) {
+		render(0, context.tickDelta(), context.world(), Minecraft.getInstance(), context.lightmapTextureManager(), context.camera().getPosition().x, context.camera().getPosition().y, context.camera().getPosition().z);
 	}
 
 	private enum RenderType {

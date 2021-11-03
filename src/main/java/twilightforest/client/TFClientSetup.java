@@ -3,6 +3,11 @@ package twilightforest.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+<<<<<<< Updated upstream
+=======
+import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+>>>>>>> Stashed changes
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import shadow.fabric.api.client.rendering.v1.ArmorRenderingRegistry;
@@ -20,6 +25,11 @@ import twilightforest.entity.TFEntities;
 import twilightforest.inventory.TFContainers;
 import twilightforest.item.TFItems;
 import twilightforest.network.TFPacketHandler;
+<<<<<<< Updated upstream
+=======
+import twilightforest.world.registration.TFDimensions;
+
+>>>>>>> Stashed changes
 import java.lang.reflect.Field;
 
 import net.minecraft.client.Minecraft;
@@ -55,7 +65,9 @@ public class TFClientSetup implements ClientModInitializer {
         TFContainers.renderScreens();
 
         TwilightForestRenderInfo renderInfo = new TwilightForestRenderInfo(128.0F, false, DimensionSpecialEffects.SkyType.NONE, false, false);
-        DimensionSpecialEffects.EFFECTS.put(TwilightForestMod.prefix("renderer"), renderInfo);
+        DimensionRenderingRegistry.registerDimensionEffects(TwilightForestMod.prefix("renderer"), renderInfo);
+        DimensionRenderingRegistry.registerSkyRenderer(TFDimensions.twilightForest, renderInfo.getSkyRenderHandler());
+        DimensionRenderingRegistry.registerWeatherRenderer(TFDimensions.twilightForest, renderInfo.getWeatherRenderHandler());
 
         Minecraft.getInstance().execute(() -> {
             Sheets.SIGN_MATERIALS.put(TFBlocks.TWILIGHT_OAK, Sheets.createSignMaterial(TFBlocks.TWILIGHT_OAK));
